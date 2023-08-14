@@ -1,24 +1,67 @@
 # BetterValidations
 
-TODO: Delete this and the text below, and describe your gem
+Although rails has validation with ActiveModel::Validations, there are a couple of boiler plate validations that
+needs to be done while building web applications, most of the time.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/better_validations`. To experiment with that code, run `bin/console` for an interactive prompt.
+For example, `email validation`, `phone number validation` etc.
+
+Although there are solutions that are available, either it requires multiple gems or 
+user relies on QA from stackoverflow or other forums of sorts.
+
+BetterValidations is a gem that provides a set of enhanced custom validators for use in your rails all.
+
+These custom validators offer additional functionality beyond the built-in Rails validators, allowing you to perform complex validations with ease.BetterValidations is a gem that provides a set of enhanced custom validators for use in your Rails applications. These custom validators offer additional functionality beyond the built-in Rails validators, allowing you to perform complex validations with ease.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
+```ruby
+gem 'better_validations', git: 'https://github.com/ikouchiha47/better_validations.git'
+```
 
-Install the gem and add to the application's Gemfile by executing:
+or, you can use the bundler to do
+```
+bundle add better_validations --git=https://github.com/ikouchiha47/better_validations.git
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```  
 
 ## Usage
 
-TODO: Write usage instructions here
+#### Email format validator
+
+```ruby
+class User < ApplicationRecord
+    validates :email, email_format: true
+end
+```
+
+or
+
+```ruby
+class User < ApplicationRecord
+    validates :email, email_format: { check_with: ->(email) { custom_email_validator(email) } }
+
+    private
+
+    def default_validator_proc
+        proc { |email| email =~ URI::MailTo::EMAIL_REGEXP }
+    end
+end
+```
+
+You can also pass `{ allow_nil: true }`, to skip if its nil. 
+
+
+#### Phone number format validator.
+
+uses `phony_rails` to run this validation. This accepts whatever options [PhonyRails.plausible_number?](https://github.com/joost/phony_rails/blob/v0.15.0/lib/phony_rails.rb#L117) takes as arguments.
+
+
+
+## Supported validators
+
+- `email_format: true`
+- `email_format: { check_with: Proc.new, allow_nil: false }`
 
 ## Development
 
@@ -28,7 +71,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/better_validations.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ikouchiha47/better_validations 
 
 ## License
 
