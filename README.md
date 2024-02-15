@@ -8,7 +8,7 @@ For example, `email validation`, `phone number validation` etc.
 Although there are solutions that are available, either it requires multiple gems or 
 user relies on QA from stackoverflow or other forums of sorts.
 
-BetterValidations is a gem that provides a set of enhanced custom validators for use in your rails all.
+BetterValidations is a gem that provides a set of enhanced custom validators for use for your rails app.
 
 These custom validators offer additional functionality beyond the built-in Rails validators, allowing you to perform complex validations with ease.BetterValidations is a gem that provides a set of enhanced custom validators for use in your Rails applications. These custom validators offer additional functionality beyond the built-in Rails validators, allowing you to perform complex validations with ease.
 
